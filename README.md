@@ -34,7 +34,9 @@ The database consists of two related tables:
 A **"one-to-many"** relationship is implemented between the tables:
 * One user can have **many** tasks.
 * Each task belongs to **exactly one** user.
-* This is implemented via a foreign key (`Tasks.UserId` -> `Users.Id`). ## Instructions for Creating the Database
+* This is implemented via a foreign key (`Tasks.UserId` -> `Users.Id`).
+  
+*  ## Instructions for Creating the Database
 
 To create the database and its structure, follow these steps:
 1. Open **SQL Server Management Studio (SSMS)** and connect to your server.
@@ -57,7 +59,8 @@ To create the database and its structure, follow these steps:
 * `DELETE` — removing a specific test task (with a preliminary check using `SELECT`).
 * **JOINs:**
 * `INNER JOIN` — used to display tasks only when associated with a user. 
-* `LEFT JOIN` — used to display **all** users (including those who have no tasks). * **Aggregate Functions and Grouping:** Queries using `COUNT` and `GROUP BY` have been written to calculate the total number of tasks for each user.
+* `LEFT JOIN` — used to display **all** users (including those who have no tasks). 
+* **Aggregate Functions and Grouping:** Queries using `COUNT` and `GROUP BY` have been written to calculate the total number of tasks for each user.
 * **Transactions:** A business operation has been modeled using `BEGIN TRANSACTION`, `COMMIT`, and `ROLLBACK` within a `TRY...CATCH` block to ensure data integrity.
 * **Most Active User:** A combination of `TOP 1` and `ORDER BY COUNT(...) DESC` has been used to identify the user with the highest number of tasks.
 * **Indexes:** A non-clustered index, `IX_Tasks_UserId`, has been created to optimize frequent queries that search for tasks by user; additionally, a composite index has been implemented to streamline filtering by status and sorting by date.
