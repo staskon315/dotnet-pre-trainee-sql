@@ -46,3 +46,29 @@ SELECT Title,Name,IsCompleted FROM Tasks INNER JOIN Users ON Users.Id=Tasks.User
 INSERT INTO Users(Name, Email) 
 VALUES('IVAN','IVAN@gmail.com');
 SELECT Name, Title FROM Users LEFT JOIN Tasks ON Users.Id=Tasks.UserId ;
+
+SELECT COUNT(*) FROM Users;
+SELECT COUNT(*) FROM Tasks;
+SELECT COUNT(*) FROM Tasks WHERE IsCompleted=1;
+SELECT COUNT(*) FROM Tasks WHERE IsCompleted=0;
+SELECT u.Id,u.Name, COUNT(t.Id) FROM Users u LEFT JOIN Tasks t ON t.UserId=u.Id GROUP BY u.Id, u.Name;
+
+SELECT U.Id, U.Name FROM Users U LEFT JOIN Tasks T ON U.Id=T.UserId WHERE T.UserId IS NULL;
+
+SELECT * FROM Tasks WHERE Title='More on Indexes' ;
+BEGIN TRY
+    BEGIN TRANSACTION;
+        UPDATE Tasks SET IsCompleted=1 WHERE Title='More on Indexes';
+        INSERT INTO Tasks(Title, Description, IsCompleted, UserId) 
+        VALUES('B-TRANSACTION','TRANSACTION',0,4);
+        COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+END CATCH
+SELECT * FROM Tasks WHERE Title='More on Indexes' ;
+SELECT * FROM Tasks WHERE Title='B-TRANSACTION' ;
+
+INSERT INTO Users(Name, Email) 
+VALUES('IVAN','IVAN@gmail.com');
+SELECT Name, Title FROM Users LEFT JOIN Tasks ON Users.Id=Tasks.UserId ;
