@@ -16,3 +16,8 @@ CREATE TABLE Tasks
 	UserId INT NOT NULL,
 	FOREIGN  KEY(UserId) REFERENCES Users(Id)
 );
+
+CREATE NONCLUSTERED INDEX IX_Tasks_UserId 
+ON Tasks (UserId);
+CREATE NONCLUSTERED INDEX IX_Tasks_UserId_IsCompleted_CreatedAt
+ON Tasks (UserId, IsCompleted, CreatedAt);
