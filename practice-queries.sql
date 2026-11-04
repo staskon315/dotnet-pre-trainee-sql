@@ -35,3 +35,14 @@ UPDATE Tasks SET IsCompleted=1 WHERE Title='Understand Transactions';
 UPDATE Tasks SET Title='Learn db' WHERE Id=33;
 UPDATE Users SET Email='john1234@gmail.com' WHERE Id=3;
 UPDATE Tasks SET IsCompleted=1 WHERE UserId=2;
+
+INSERT INTO Tasks(Title, Description, IsCompleted, UserId) 
+VALUES('TEMP','',0,4);
+SELECT * FROM Tasks WHERE Title='TEMP';
+DELETE FROM Tasks WHERE Title='TEMP';
+
+SELECT Title,Name,IsCompleted FROM Tasks INNER JOIN Users ON Users.Id=Tasks.UserId;
+
+INSERT INTO Users(Name, Email) 
+VALUES('IVAN','IVAN@gmail.com');
+SELECT Name, Title FROM Users LEFT JOIN Tasks ON Users.Id=Tasks.UserId ;
