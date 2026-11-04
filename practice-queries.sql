@@ -28,11 +28,11 @@ SELECT * FROM Users WHERE Name='Sophia';
 SELECT * FROM Tasks WHERE UserId=4;
 
 SELECT * FROM Tasks WHERE Title='Understand Transactions';
-SELECT * FROM Tasks WHERE Id=33;
+SELECT * FROM Tasks WHERE Id=9;
 SELECT * FROM Users WHERE Id=3;
 SELECT * FROM Tasks  WHERE UserId=2;
 UPDATE Tasks SET IsCompleted=1 WHERE Title='Understand Transactions';
-UPDATE Tasks SET Title='Learn db' WHERE Id=33;
+UPDATE Tasks SET Title='Learn db' WHERE Id=9;
 UPDATE Users SET Email='john1234@gmail.com' WHERE Id=3;
 UPDATE Tasks SET IsCompleted=1 WHERE UserId=2;
 
@@ -69,6 +69,14 @@ END CATCH
 SELECT * FROM Tasks WHERE Title='More on Indexes' ;
 SELECT * FROM Tasks WHERE Title='B-TRANSACTION' ;
 
-INSERT INTO Users(Name, Email) 
-VALUES('IVAN','IVAN@gmail.com');
-SELECT Name, Title FROM Users LEFT JOIN Tasks ON Users.Id=Tasks.UserId ;
+SELECT 
+U.Name,
+COUNT(T.Id) AS Count_Tasks,
+SUM(CASE WHEN T.IsCompleted = 1 THEN 1 ELSE 0 END) AS Count_Completed,
+SUM(CASE WHEN T.IsCompleted = 0 THEN 1 ELSE 0 END) AS Count_Incompleted FROM Users U 
+LEFT JOIN Tasks T ON T.UserId=U.Id GROUP BY U.Id, U.Name;
+
+SELECT TOP 1 U.Id,U.Name, COUNT(T.Id ) AS Count_Tasks FROM Users U
+INNER JOIN Tasks T ON T.UserId=U.Id 
+GROUP BY U.Id,U.Name 
+ORDER BY COUNT(T.Id) DESC;
